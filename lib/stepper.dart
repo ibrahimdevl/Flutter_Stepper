@@ -202,13 +202,28 @@ class _CustomizedStepState extends State<StatefulWidget> {
       ),
     );
   }
+  Widget _getPageWidgetsOnSide() {
+    return SizedBox(
+      child: PageView(
+        controller: _controller,
+        onPageChanged: (index) => setState(() {
+          changeStatus(index);
+        }),
+        children: _getPages(),
+      ),
+    );
+  }
 
   Widget _getTitleWidgets() {
-    return  (type == Type.LEFT || type == Type.RIGHT)? Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-    ) : Row(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: getTitles(),
+    );
+  }
+  Widget _getTitleWidgetsOnSide() {
+    return  Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      //mainAxisAlignment: MainAxisAlignment.spaceBetween,
     );
   }
 
@@ -221,19 +236,7 @@ class _CustomizedStepState extends State<StatefulWidget> {
         top: PADDING_SMALL,
         bottom: PADDING_SMALL
       ),
-      child:(type == Type.LEFT || type == Type.RIGHT) ?
-      SizedBox(
-        //height: MediaQuery.of(context).size.height-100.0,
-        //width: 40.0,
-        child: Row(
-            children: <Widget>[
-              Column(
-                children: _getStepCircles(),
-              )
-            ],
-          ),
-      ):
-      Container(
+      child:Container(
         child: Column(
               children: <Widget>[
                 Row(
@@ -243,6 +246,30 @@ class _CustomizedStepState extends State<StatefulWidget> {
             ),
       ),
     );
+  }
+ Widget _getIndicatorWidgetsOnSide(double width) {
+    return Container(
+      width: width,
+      height: MediaQuery.of(context).size.height-50.0,
+      padding: const EdgeInsets.only(
+        left: 12,
+        right: 12,
+        top: PADDING_SMALL,
+        bottom: PADDING_SMALL
+      ),
+      child:SizedBox(
+        //height: MediaQuery.of(context).size.height-100.0,
+        //width: 40.0,
+        child: Row(
+            children: <Widget>[
+              Column(
+                children: _getStepCircles(),
+              )
+            ],
+          ),
+      )
+    );
+
   }
 
   List<Widget> _getTopTypeWidget(double width) {
@@ -259,12 +286,12 @@ class _CustomizedStepState extends State<StatefulWidget> {
   }
   List<Widget> _getLeftTypeWidget(double height) {
     return [
-      _getIndicatorWidgets(height),
+      _getIndicatorWidgetsOnSide(height),
       SizedBox(
         width: MARGIN_SMALL,
       ),
-      _getTitleWidgets(),
-      _getPageWidgets(),
+      _getTitleWidgetsOnSide(),
+      _getPageWidgetsOnSide(),
       // hey boy uncomment this if you want buttons
       _getButtons()
     ];
@@ -272,14 +299,15 @@ class _CustomizedStepState extends State<StatefulWidget> {
 
   List<Widget> _getRightTypeWidget(double height) {
     return [
-      _getIndicatorWidgets(height),
+      _getIndicatorWidgetsOnSide(height),
       SizedBox(
-        width: MARGIN_SMALL,
+        height: MARGIN_SMALL,
       ),
-      _getTitleWidgets(),
-      _getPageWidgets(),
+      _getTitleWidgetsOnSide(),
+      _getPageWidgetsOnSide(),
+      _getButtonsOnSide(),
       // hey boy uncomment this if you want buttons
-      _getButtons()
+      //_getButtons()
     ];
   }
 
@@ -289,6 +317,87 @@ class _CustomizedStepState extends State<StatefulWidget> {
         MARGIN_NORMAL,
       ),
       child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.3,
+            child: GestureDetector(
+              onTap: () => _goToPreviousPage(),
+              child: Container(
+                padding: const EdgeInsets.all(
+                  MARGIN_NORMAL,
+                ),
+                child: Center(
+                  child: Text(
+                    "BACK",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 14,
+                      ///////////// heyyy i am here u idiot
+                      color:  (btnTextColor != null) ? btnTextColor : Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                decoration: BoxDecoration(
+                  color: leftBtnColor,
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(
+                      CHIP_BORDER_RADIUS,
+                    ),
+                    topLeft: Radius.circular(
+                      CHIP_BORDER_RADIUS,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.3,
+            child: GestureDetector(
+              onTap: () => steps[currentStep].isValid ? _goToNextPage() : null,
+              child: Container(
+                padding: const EdgeInsets.all(
+                  MARGIN_NORMAL,
+                ),
+                child: Center(
+                  child: Text(
+                    "NEXT",
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: (btnTextColor != null) ? btnTextColor : Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                decoration: BoxDecoration(
+                  color:
+                  steps[currentStep].isValid ? rightBtnColor : Colors.grey,
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(
+                      CHIP_BORDER_RADIUS,
+                    ),
+                    topRight: Radius.circular(
+                      CHIP_BORDER_RADIUS,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+  Widget _getButtonsOnSide() {
+    return Container(
+      padding: const EdgeInsets.all(
+        MARGIN_NORMAL,
+      ),
+      child: Column(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[

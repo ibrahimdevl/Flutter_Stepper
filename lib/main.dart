@@ -117,7 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
           leftBtnColor: const Color(0xc11f438f),
           rightBtnColor: const Color(0xff449bb6),
           selectedOuterCircleColor: const Color(0xc11f438f),
-          type: Type.LEFT,
+          type: Type.RIGHT,
           circleRadius: 30,
           onComplete: () {
             print("completed");
