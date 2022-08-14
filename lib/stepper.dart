@@ -204,6 +204,7 @@ class _CustomizedStepState extends State<StatefulWidget> {
   }
   Widget _getPageWidgetsOnSide() {
     return SizedBox(
+      width: MediaQuery.of(context).size.width-300,
       child: PageView(
         controller: _controller,
         onPageChanged: (index) => setState(() {
@@ -224,6 +225,7 @@ class _CustomizedStepState extends State<StatefulWidget> {
     return  Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: getTitlesOnSide(),
     );
   }
 
@@ -236,7 +238,7 @@ class _CustomizedStepState extends State<StatefulWidget> {
         top: PADDING_SMALL,
         bottom: PADDING_SMALL
       ),
-      child:Container(
+      child:SizedBox(
         child: Column(
               children: <Widget>[
                 Row(
@@ -249,18 +251,18 @@ class _CustomizedStepState extends State<StatefulWidget> {
   }
  Widget _getIndicatorWidgetsOnSide(double width) {
     return Container(
-      width: width,
+      //width: width,
       height: MediaQuery.of(context).size.height-50.0,
       padding: const EdgeInsets.only(
-        left: 12,
-        right: 12,
+        //left: 12,
+        //right: 12,
         top: PADDING_SMALL,
         bottom: PADDING_SMALL
       ),
       child:SizedBox(
-        //height: MediaQuery.of(context).size.height-100.0,
+        height: MediaQuery.of(context).size.height-20.0,
         //width: 40.0,
-        child: Row(
+          child: Row(
             children: <Widget>[
               Column(
                 children: _getStepCircles(),
@@ -285,25 +287,28 @@ class _CustomizedStepState extends State<StatefulWidget> {
     ];
   }
   List<Widget> _getLeftTypeWidget(double height) {
-    return [
-      _getIndicatorWidgetsOnSide(height),
-      SizedBox(
-        width: MARGIN_SMALL,
-      ),
-      _getTitleWidgetsOnSide(),
+    return [ Row(
+      children:  [_getIndicatorWidgetsOnSide(height),
+        SizedBox(
+          height: MARGIN_SMALL,
+        ),
+        _getTitleWidgetsOnSide()],
+    ),
       _getPageWidgetsOnSide(),
       // hey boy uncomment this if you want buttons
-      _getButtons()
+      _getButtonsOnSide()
     ];
   }
 
   List<Widget> _getRightTypeWidget(double height) {
     return [
-      _getIndicatorWidgetsOnSide(height),
-      SizedBox(
-        height: MARGIN_SMALL,
-      ),
-      _getTitleWidgetsOnSide(),
+     Row(
+        children:  [_getIndicatorWidgetsOnSide(height),
+       //   SizedBox(
+       //     height: MARGIN_SMALL,
+       //   ),
+         _getTitleWidgetsOnSide()],
+     ),
       _getPageWidgetsOnSide(),
       _getButtonsOnSide(),
       // hey boy uncomment this if you want buttons
@@ -477,12 +482,30 @@ class _CustomizedStepState extends State<StatefulWidget> {
   List<Widget> getTitles() {
     return steps
         .map((e) => Flexible(
+      child: SizedBox(
+        child: Center(
+          child: Text(
+            e.title,
+            style: (textStyle != null) ? textStyle :
+                const TextStyle(
+                  fontSize: 12,
+                  //fontWeight: FontWeight.bold,
+                ),
+          ),
+        ),
+      ),
+    ))
+        .toList();
+  }
+  List<Widget> getTitlesOnSide() {
+    return steps
+        .map((e) => Flexible(
       child: Center(
         child: Text(
           e.title,
           style: (textStyle != null) ? textStyle :
               const TextStyle(
-                fontSize: 12,
+                fontSize: 14,
                 //fontWeight: FontWeight.bold,
               ),
         ),
