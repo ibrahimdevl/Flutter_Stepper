@@ -95,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
             CustomizedStep(
               title: "Attendance",
               widget: Center(
-                child: Text('Step1'),
+                child: Text('Step 2'),
               ),
               isValid: true,
             ),
@@ -117,7 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
           leftBtnColor: const Color(0xc11f438f),
           rightBtnColor: const Color(0xff449bb6),
           selectedOuterCircleColor: const Color(0xc11f438f),
-          type: Type.RIGHT,
+          type: Type.LEFT,
           circleRadius: 30,
           onComplete: () {
             print("completed");

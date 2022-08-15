@@ -347,7 +347,7 @@ class _CustomizedStepState extends State<StatefulWidget> {
                 ),
                 decoration: BoxDecoration(
                   color: leftBtnColor,
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(
                       CHIP_BORDER_RADIUS,
                     ),
@@ -562,7 +562,7 @@ class _StepLine extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return Flexible(
         child:  (type == Type.LEFT || type == Type.RIGHT) ?
 
         Container(
@@ -570,7 +570,8 @@ class _StepLine extends StatelessWidget {
             top: 4,
             bottom: 4,
           ),
-          width: 3,
+          height: step.state == CustomizedStepState.SELECTED &&  ? 120.0 : 10.0,
+          width: 3.0,
           color: step.state == CustomizedStepState.SELECTED
               ? selectedColor
               : unSelectedColor,
