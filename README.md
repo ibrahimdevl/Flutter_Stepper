@@ -1,16 +1,19 @@
 # stepper
 
-A new Flutter Stepper
+This Stepper is built From scratch and it is customizable
 
-## Getting Started
+This is a short video for the top stepper
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+https://user-images.githubusercontent.com/60034059/184947611-48b45ded-f690-42b1-8233-a25f586fad72.mp4
+
+
+
+Top and Bottom steppers are done but I am still working on the left and right steppers.
+
+
+
+
+
